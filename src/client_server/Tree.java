@@ -1,11 +1,32 @@
-package server;
+package client_server;
+
+import model.Veiculo;
 
 public class Tree <T>{
 	No<T> raiz;
-	int rotacoes = 0;
+	int rotacoesE;
+	int rotacoesD;
 	
+	public int getRotacoesD() {
+		return rotacoesD;
+	}
+
+	public void setRotacoesD(int rotacoesD) {
+		this.rotacoesD = rotacoesD;
+	}
+
+	public int getRotacoesE() {
+		return rotacoesE;
+	}
+
+	public void setRotacoesE(int rotacoes) {
+		this.rotacoesE = rotacoes;
+	}
+
 	public Tree() {
 		this.setRaiz(null);
+		this.rotacoesE = 0;
+		this.rotacoesD = 0;
 	}
 
 	public No<T> getRaiz() {
@@ -15,7 +36,6 @@ public class Tree <T>{
 	public void setRaiz(No<T> raiz) {
 		this.raiz = raiz;
 	}
-	
 	public void ordem() {
 		this.ordem(getRaiz());
 	}
@@ -24,7 +44,7 @@ public class Tree <T>{
 		
 		if(a != null) {
 			this.ordem(a.getEsq());
-			System.out.println(a.getChave()+ " : "+a.getValor());
+			System.out.println(a.getValor());
 			this.ordem(a.getDir());
 		}
 
@@ -108,7 +128,7 @@ public class Tree <T>{
 	}
 	
 	private No<T> res(No<T> x) {
-		rotacoes++;
+		rotacoesE++;
 		No<T> y = x.getDir();
 		No<T> z = y.getEsq();
 		
@@ -124,7 +144,7 @@ public class Tree <T>{
 	}
 	
 	private No<T> rds(No<T> y) {
-	rotacoes++;
+	rotacoesD++;
 		No<T> x = y.getEsq();
 		No<T> z = x.getDir();
 		
@@ -140,12 +160,12 @@ public class Tree <T>{
 	}
 	public void remover(Long k) {
 
-		No<T> x = buscar(k, k.toString());
+		No<T> x = buscar(k);
 		this.raiz = this.remover(getRaiz(), k, x.valor);
 	}
 	private No<T> remover(No<T> arv,Long ch , T v) {
 		
-		No<T> x = buscar(ch, v.toString());
+		No<T> x = buscar(ch);
 
 		/* Executar remoção em ABB */
 		if(arv == null)
@@ -231,10 +251,17 @@ public class Tree <T>{
 		return temp;
 		}
 	
-	public No<T> buscar(Long ch, String placa) {
+
+
+
+
+
+
+	public No<T> buscar(Long ch) {
+
 		return this.buscar(this.getRaiz(), ch);
 	}
-	private No<T> buscar(No<T> arv, Long ch){
+	private No<T> buscar(No<T> arv, long ch){
 		if(arv == null)
 		 return null;
 		else if(arv.chave > ch)
@@ -242,16 +269,50 @@ public class Tree <T>{
 		else if(arv.chave < ch)
 		return buscar(arv.dir, ch);
 		else
+			
 		return arv;
 		}
+	
+		public No<Veiculo> buscar(Long ch, String placa) {
+			return this.buscar((No<Veiculo>) this.getRaiz(), ch, placa);
+			
+		}
+	private No<Veiculo> buscar(No<Veiculo> arv,long ch ,String placa){
+		if(arv == null)
+		 return null;
+		else if(arv.chave > ch)
+		return buscar(arv.esq, ch, placa);
+		else if(arv.chave < ch)
+		return buscar(arv.dir, ch,placa);
+		else
+			if(arv.valor.getPlaca() == placa){
+				return arv;
+			}
+			else{
+				System.out.println("Erro: Placa do carro não bate com o renavam");
+				return	null;
+			}
+		
+		}
 
+
+
+
+
+
+
+
+
+
+
+		
 	public No<T> alterar(Long renavan, T v) {
 		return this.alterar(this.getRaiz(), renavan, v);
 	}
 
 	private No<T> alterar(No<T> arv, Long ch, T v) {
 
-		No<T> b = buscar(ch, v.toString());
+		No<T> b = buscar(ch);
 			if(b != null) {
 				b.setValor(v);
 				return b;

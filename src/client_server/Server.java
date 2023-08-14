@@ -1,4 +1,4 @@
-package server;
+package client_server;
 
 import java.util.Scanner;
 
@@ -29,6 +29,12 @@ public class Server {
 	}
 	public int quantidade() {
 		return avl.quantidade();
+	}
+    public int rotacoesE() {
+        return avl.getRotacoesE();
+    }
+	public int rotacoesD() {
+		return avl.getRotacoesD();
 	}
 
 

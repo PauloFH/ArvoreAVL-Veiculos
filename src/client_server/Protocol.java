@@ -1,4 +1,4 @@
-package protocol;
+package client_server;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -8,8 +8,6 @@ import java.util.Date;
 import java.util.Scanner;
 
 import model.Veiculo;
-import server.No;
-import server.Server;
 
 public class Protocol {
 
@@ -30,11 +28,19 @@ public class Protocol {
 		}      
     }
 	
-	public void openAcess(){
-
-        System.out.println("Tentando iniciar conexão");      
-        System.out.println("Conexão com o servidor feita com sucesso");
-
+	public void openAccess() {
+        System.out.print("Tentando iniciar conexão");
+        
+        try {
+            for (int i = 0; i < 5; i++) {
+                Thread.sleep(500); // Aguarda 0.5 segundos
+                System.out.print("."); // Imprime um ponto para simular a barra girando
+            }
+            
+            System.out.println("\nConexão com o servidor feita com sucesso");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
     public void cadVeiculos(){
         Scanner lex = new Scanner(System.in);
@@ -65,7 +71,8 @@ public class Protocol {
 				server.inserir(renavan, v);
                int a =  Server.avl.altura();
                 writerAc("Altura da arvore: "+ a);
-                 System.out.println("Adicionado o Veículo placa: " + placa);
+                 System.out.println("Adicionado o Veículo placa: " + placa); 
+            writerAc("Foram realizadas "+ server.rotacoesE()+ " rotações a esquerda e "+ server.rotacoesD()+ "rotações a direita");
 			} catch (Exception e) {
 			}
             lex.close();
@@ -81,6 +88,9 @@ public class Protocol {
            renavan = leitex.nextLong();
            server.remover(renavan);
               writerAc("Remoção de veículo Realizada no veiculo: "+ renavan);
+               writerAc("Foram realizadas "+ server.rotacoesE()+ " rotações a esquerda e "+ server.rotacoesD()+ "rotações a direita");
+                int a =  Server.avl.altura();
+                writerAc("Altura da arvore: "+ a);
               System.out.println("Veículo removido com sucesso");
               leitex.close();
         }
@@ -116,6 +126,7 @@ public class Protocol {
 			} catch (Exception e) {
 			}
         writerAc("Alteraçao de veiculo Realizada no veiculo: "+ renavan);
+        writerAc("Foram realizadas "+ server.rotacoesE()+ " rotações a esquerda e "+ server.rotacoesD()+ "rotações a direita");
         leitex.close();
     }
     public No<Veiculo> buscarVeiculos(){
@@ -153,8 +164,18 @@ public class Protocol {
 
 
     public void  closeAcess(){
-        System.out.println("Tentando fechar conexão");
-        System.out.println("Conexão com o servidor finalizada com sucesso");
+        System.out.print("Tentando finalizar conexão");
+        
+        try {
+            for (int i = 0; i < 5; i++) {
+                Thread.sleep(500); // Aguarda 0.5 segundos
+                System.out.print("."); // Imprime um ponto para simular a barra girando
+            }
+            
+            System.out.println("\nConexão com o servidor finalizada com sucesso");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
     public void listar(){
         System.out.println("Listar Veículos\n");
@@ -169,11 +190,9 @@ public class Protocol {
           writerAc("Adicionar Veículos realizada de veiculo: " + v.getPlaca());
             int a =  Server.avl.altura();
                 writerAc("Altura da arvore: "+ a);
+             writerAc("Foram realizadas "+ server.rotacoesE()+ " rotações a esquerda e "+ server.rotacoesD()+ "rotações a direita");
        
    }
-        
-
-
 public void  writerAc(String text) {
     try {
         gravarArq.write(text + "\n");

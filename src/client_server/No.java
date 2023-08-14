@@ -1,4 +1,4 @@
-package server;
+package client_server;
 
 public class No<T> implements Comparable<Long>{
 

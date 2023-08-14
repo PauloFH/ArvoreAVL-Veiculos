@@ -1,18 +1,17 @@
-package main;
+package client_server;
 
+import java.io.Console;
 import java.util.Scanner;
 
-import client.Client;
 import model.Veiculo;
-import protocol.Protocol;
 
-public class program {
+public class run {
 	public static void main(String[] args) {
 		  Client client = new Client();
 		 Protocol protocol =  new Protocol();
 			int x = 0;
 			Scanner ler = new Scanner(System.in);
-		
+			Console console = System.console();
 		 
 		protocol.inserir(20737520587l, new Veiculo("Lotus Elan S-2 1.6 16V", 20737520587l,"MYW-7312",1995,"Diogo Pedro Henrique Joaquim Rocha", "521.584.994-35"));
 		protocol.inserir(54312072502l, new Veiculo("Pontiac Trans-Sport SE 3.1 ", 54312072502l,"MYY-6935",1991,"Helena Andreia Moraes", "212.187.624-38"));
@@ -64,34 +63,43 @@ public class program {
 		protocol.inserir(78110126986l, new Veiculo("ASTON MARTIN Vantage S 6.0 V12 565cv",30976021643l ,"JTC-3752",2015,"Laura Elaine Adriana da Silva", "219.199.757-05"));
 		protocol.inserir(83109184540l, new Veiculo("Troller T-4 4x4 3.0 TB Int. Cap. Lona Diesel ",83109184540l ,"HUW-4283",2006,"Isadora Ana Vanessa Sales", "834.545.236-13"));
 		protocol.inserir(50655297959l, new Veiculo("MG 550 1.8 16V Turbo 170cv Aut.",50655297959l ,"HSB-2837",2010,"Mateus Caleb Yago da Paz", "581.687.187-04"));
-		do {
-				System.out.println("  1 -Entrar como cliente \n 0 - Fechar o sistema Servidor");
-				System.out.print("Escolha como interagir:");
-				x = ler.nextInt();
-				ler.nextLine();
-			switch (x){
-				case 1:
-				client.client();
-				break;
-				case 0:
-				System.out.println("Fechando o sistema!!");
-				break;
-				default:
-				System.out.println("Opção inválida");
-				break;
-			}	} while (x != 0);		
-			
+		
+        do {
+            System.out.println("╔══════════════════════╗");
+            System.out.println("║   Menu de Opções     ║");
+            System.out.println("╠══════════════════════╣");
+            System.out.println("║  1) - Entrar como    ║");
+            System.out.println("║       cliente        ║");
+            System.out.println("║  0) - Fechar o       ║");
+            System.out.println("║       sistema        ║");
+            System.out.println("╚══════════════════════╝");
+            System.out.print("Escolha uma opção: ");
+            x = ler.nextInt();
+            ler.nextLine();
+
+            switch (x) {
+                case 1:
+                    System.out.println("\nVocê selecionou 'Entrar como cliente'.");
+                    client.client();
+                    break;
+                case 0:
+                    System.out.println("\nFechando o sistema!!");
+                    break;
+                default:
+                    System.out.println("\nOpção inválida");
+                    break;
+            }
+            
+            if (x != 0) {
+                System.out.print("\nPressione Enter para continuar...");
+                ler.nextLine();
+            }
+            
+        } while (x != 0);
 		ler.close();
-	}
-		
-		
-		
-		
-		
-		
-		
-		
-	}
+    }	
+			
+}
 
 
 /*
