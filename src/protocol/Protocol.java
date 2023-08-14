@@ -37,7 +37,6 @@ public class Protocol {
 
     }
     public void cadVeiculos(){
-        @SuppressWarnings("unused")
         Scanner lex = new Scanner(System.in);
 		 	String modelo;
 			String cpf;
