@@ -55,30 +55,19 @@ public class Veiculo {
 	public String toString() {
 		StringBuilder output = new StringBuilder();
 	
-		String separator = "+---------------------+";
-		int modeloWidth = modelo.length();
-		int condutorNameWidth = condutor.getName().length();
-		int condutorCPFWidth = condutor.getCPF().length();
-		int renavanWidth = String.valueOf(renavan).length();
-		int placaWidth = placa.length();
-		int dataWidth = String.valueOf(data).length();
+		String separator = "+--------------------------------------------------------------------+";
 	
-		int maxColumnWidth = Math.max(
-			Math.max(modeloWidth, condutorNameWidth),
-			Math.max(condutorCPFWidth, Math.max(renavanWidth, Math.max(placaWidth, dataWidth)))
-		);
-	
-		int columnWidth = Math.max(maxColumnWidth, 20);
+		int columnWidth = 50;
 	
 		output.append(separator).append("\n");
-		output.append("|        Veículo      |\n");
+		output.append("|                              Veículo                               |\n");
 		output.append(separator).append("\n");
-		output.append("| Modelo: ").append(String.format("%-" + columnWidth + "s", modelo)).append(" |\n");
-		output.append("| Condutor: ").append(String.format("%-" + columnWidth + "s", condutor.getName())).append(" |\n");
-		output.append("| CPF do Condutor: ").append(String.format("%-" + columnWidth + "s", condutor.getCPF())).append(" |\n");
-		output.append("| Renavan: ").append(String.format("%-" + columnWidth + "s", renavan)).append(" |\n");
-		output.append("| Placa: ").append(String.format("%-" + columnWidth + "s", placa)).append(" |\n");
-		output.append("| Data: ").append(String.format("%-" + columnWidth + "s", data)).append(" |\n");
+		output.append("| Modelo:          ").append(String.format("%-" + columnWidth + "s", modelo)).append("|\n");
+		output.append("| Condutor:        ").append(String.format("%-" + columnWidth + "s", condutor.getName())).append("|\n");
+		output.append("| CPF do Condutor: ").append(String.format("%-" + columnWidth + "s", condutor.getCPF())).append("|\n");
+		output.append("| Renavan:         ").append(String.format("%-" + columnWidth + "s", renavan)).append("|\n");
+		output.append("| Placa:           ").append(String.format("%-" + columnWidth + "s", placa)).append("|\n");
+		output.append("| Data:            ").append(String.format("%-" + columnWidth + "s", data)).append("|\n");
 		output.append(separator).append("\n");
 	
 		return output.toString();

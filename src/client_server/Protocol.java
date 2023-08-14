@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+import exceptions.InvalidDataException;
 import model.Veiculo;
 
 public class Protocol {
@@ -43,7 +44,9 @@ public class Protocol {
         }
     }
     public void cadVeiculos(){
-        Scanner lex = new Scanner(System.in);
+          Scanner lex1;
+        try{
+         lex1 = new Scanner(System.in);
 		 	String modelo;
 			String cpf;
 			String nome;
@@ -52,51 +55,59 @@ public class Protocol {
 			int data = 0;
 			System.out.println("Adicionar Veículos\n");
 			System.out.print("marca do veículo: ");
-			modelo = lex.nextLine();
+			modelo = lex1.nextLine();
 			System.out.print("placa do veículo: ");
-			placa = lex.nextLine();
+			placa = lex1.nextLine();
 			System.out.print("renavan do veículo: ");
-			renavan = lex.nextLong();
+			renavan = lex1.nextLong();
 			System.out.print("data de fabricação do veículo: ");
-			data = lex.nextInt();
-			lex.nextLine();
+			data = lex1.nextInt();
+			lex1.nextLine();
 			System.out.print("nome do condutor do veículo do veículo: ");
-			nome = lex.nextLine();
+			nome = lex1.nextLine();
 			System.out.print("CPF do condutor do veículo do veículo: ");
-			cpf = lex.nextLine();
+			cpf = lex1.nextLine();
 			Veiculo v = new Veiculo(modelo,renavan , placa, data, nome, cpf);
+        if (dadosInvalidos(modelo, placa, renavan, data, nome, cpf)) {
+            throw new InvalidDataException("Dados de entrada inválidos. Verifique as informações e tente novamente.");
+        }
 
-			try {
                  writerAc("Adicionado Veiculo placa " + placa);
 				server.inserir(renavan, v);
                int a =  Server.avl.altura();
                 writerAc("Altura da arvore: "+ a);
                  System.out.println("Adicionado o Veículo placa: " + placa); 
-            writerAc("Foram realizadas "+ server.rotacoesE()+ " rotações a esquerda e "+ server.rotacoesD()+ "rotações a direita");
-			} catch (Exception e) {
-			}
-            lex.close();
+            writerAc("Foram realizadas "+ server.rotacoesE()+ " rotações a esquerda e "+ server.rotacoesD()+ " rotações a direita");
+			} catch (InvalidDataException e) {
+                System.out.println(e.getMessage());
+            } catch (Exception e) {
+            };
+
 	 }
       
 	public void removeVeiculos() {
-		  Scanner leitex = new Scanner(System.in);
+		  Scanner lex2 = new Scanner(System.in);
         Long renavan;
         System.out.println("Remover Veículos\n");
         
-        
+        try{
         System.out.print("Digite renavan do veículo: ");
-           renavan = leitex.nextLong();
+           renavan = lex2.nextLong();
            server.remover(renavan);
               writerAc("Remoção de veículo Realizada no veiculo: "+ renavan);
-               writerAc("Foram realizadas "+ server.rotacoesE()+ " rotações a esquerda e "+ server.rotacoesD()+ "rotações a direita");
+               writerAc("Foram realizadas "+ server.rotacoesE()+ " rotações a esquerda e "+ server.rotacoesD()+ " rotações a direita");
                 int a =  Server.avl.altura();
                 writerAc("Altura da arvore: "+ a);
               System.out.println("Veículo removido com sucesso");
-              leitex.close();
+
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
         }
     
     public void alterarVeiculos(){
-         Scanner leitex = new Scanner(System.in);
+        try{
+         Scanner lex3 = new Scanner(System.in);
 		 	String modelo;
 			String cpf;
 			String nome;
@@ -104,43 +115,47 @@ public class Protocol {
 			String placa;
 			int data = 0;
             System.out.print("Digite o renavam do veículo que você quer alterar: ");
-			renavan = leitex.nextLong();
-			leitex.nextLine();
+			renavan = lex3.nextLong();
+			lex3.nextLine();
 			System.out.print("marca do veículo: ");
-			modelo = leitex.nextLine();
+			modelo = lex3.nextLine();
 			System.out.print("placa do veículo: ");
-			placa = leitex.nextLine();
+			placa = lex3.nextLine();
 			System.out.print("data de fabricação do veículo: ");
-			data = leitex.nextInt();
-			leitex.nextLine();
+			data = lex3.nextInt();
+			lex3.nextLine();
 			System.out.print("nome do condutor do veículo do veículo: ");
-			nome = leitex.nextLine();
+			nome = lex3.nextLine();
 			System.out.print("CPF do condutor do veículo do veículo: ");
-			cpf = leitex.nextLine();
+			cpf = lex3.nextLine();
 			Veiculo v = new Veiculo(modelo,renavan , placa, data, nome, cpf);
-
-			try {
+            if (dadosInvalidos(modelo, placa, renavan, data, nome, cpf)) {
+            throw new InvalidDataException("Dados de entrada inválidos. Verifique as informações e tente novamente.");
+        }
+			
 				server.alterar(renavan, v);
                 System.out.println("Veículo alterado com sucesso");
                 writerAc("Altura da arvore: "+ Server.avl.altura());
-			} catch (Exception e) {
-			}
-        writerAc("Alteraçao de veiculo Realizada no veiculo: "+ renavan);
-        writerAc("Foram realizadas "+ server.rotacoesE()+ " rotações a esquerda e "+ server.rotacoesD()+ "rotações a direita");
-        leitex.close();
+                 writerAc("Alteraçao de veiculo Realizada no veiculo: "+ renavan);
+        writerAc("Foram realizadas "+ server.rotacoesE()+ " rotações a esquerda e "+ server.rotacoesD()+ " rotações a direita");
+			} catch (InvalidDataException e) {
+                System.out.println(e.getMessage());
+            } catch (Exception e) {
+            };
     }
     public No<Veiculo> buscarVeiculos(){
         
-        Scanner  leitex = new Scanner(System.in);
+        Scanner lex4= new Scanner(System.in);
         Long renavan;
         System.out.println("Buscar Veículos\n");
         
         
-        System.out.print("Digite renavan do veículo: ");
-           renavan = leitex.nextLong();
-           leitex.nextLine();
+        System.out.print("Digite renavan do veículo: "); 
+           renavan = lex4.nextLong();
+           lex4.nextLine();
                 System.out.print("Digite a placa do veículo: ");
-                String placa = leitex.nextLine();
+                String placa = lex4.nextLine();
+
            No<Veiculo> v = server.buscar(renavan, placa);
           if(v != null){
                 System.out.println("Veículo encontrado");
@@ -149,7 +164,7 @@ public class Protocol {
             System.out.println("Veículo Não encontrado");
           }              
           writerAc("Busca de veiculos Realizada");
-                    leitex.close();
+
           return v;
 
 
@@ -190,7 +205,7 @@ public class Protocol {
           writerAc("Adicionar Veículos realizada de veiculo: " + v.getPlaca());
             int a =  Server.avl.altura();
                 writerAc("Altura da arvore: "+ a);
-             writerAc("Foram realizadas "+ server.rotacoesE()+ " rotações a esquerda e "+ server.rotacoesD()+ "rotações a direita");
+             writerAc("Foram realizadas "+ server.rotacoesE()+ " rotações a esquerda e "+ server.rotacoesD()+ " rotações a direita");
        
    }
 public void  writerAc(String text) {
@@ -203,23 +218,38 @@ public void  writerAc(String text) {
 }
 
 public void buscar() {
-    Scanner leitex = new Scanner(System.in);
+    Scanner l = new Scanner(System.in);
     Long renavan;
     System.out.println("Buscar Veículos\n");
     
     
     System.out.print("Digite renavan do veículo: ");
-       renavan = leitex.nextLong();
-       leitex.nextLine();
+       renavan = l.nextLong();
+       l.nextLine();
          System.out.print("Digite a placa do veículo: ");
-         String placa = leitex.nextLine();
+         String placa = l.nextLine();
        No<Veiculo> v = server.buscar(renavan, placa);
       if(v != null){
             System.out.println("Veículo encontrado");
             System.out.println(v.getValor().toString());
       }                   
       writerAc("Busca de veículos Realizada");
-      leitex.close();
-}
 
+}
+public  boolean dadosInvalidos(String modelo, String placa, Long renavan, int data, String nome, String cpf) {
+
+    if (modelo == null || placa == null || renavan == null || nome == null || cpf == null) {
+        return true;
+    }
+    if (!cpf.matches("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}")) {
+        return true;
+    }
+
+    
+    if (String.valueOf(renavan).length() > 12) {
+        return true;
+    }
+
+    return false;
+}
 }

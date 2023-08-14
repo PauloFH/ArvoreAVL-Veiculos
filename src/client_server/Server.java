@@ -25,7 +25,7 @@ public class Server {
 	}
 	
 	public No<Veiculo> buscar(Long renavan, String placa) {
-		return avl.buscar(renavan, placa);
+		return avl.buscar(renavan);
 	}
 	public int quantidade() {
 		return avl.quantidade();

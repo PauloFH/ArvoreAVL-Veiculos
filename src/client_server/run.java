@@ -1,8 +1,10 @@
 package client_server;
 
-import java.io.Console;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import exceptions.InputNotAnIntegerException;
 import model.Veiculo;
 
 public class run {
@@ -11,7 +13,6 @@ public class run {
 		 Protocol protocol =  new Protocol();
 			int x = 0;
 			Scanner ler = new Scanner(System.in);
-			Console console = System.console();
 		 
 		protocol.inserir(20737520587l, new Veiculo("Lotus Elan S-2 1.6 16V", 20737520587l,"MYW-7312",1995,"Diogo Pedro Henrique Joaquim Rocha", "521.584.994-35"));
 		protocol.inserir(54312072502l, new Veiculo("Pontiac Trans-Sport SE 3.1 ", 54312072502l,"MYY-6935",1991,"Helena Andreia Moraes", "212.187.624-38"));
@@ -56,15 +57,15 @@ public class run {
 		protocol.inserir(10003072502l, new Veiculo("VOYAGE I MOTION  Trendline 1.6 T.Flex 8V", 10003072502l,"LVU-9466",2021,"316.020.294-15", "316.020.294-15"));
 		protocol.inserir(49957720680l, new Veiculo("Envemo Master 4.0 Diesel",49957720680l ,"JJG-8782",1995,"Bento Mário Assis", "373.883.138-00"));
 		protocol.inserir(62697031330l, new Veiculo("JeepGrand Cherokee Limited 3.6 4x4 V6 Aut.",62697031330l ,"HPT-6391",2011,"Isabel Lara Peixoto", "156.465.742-69"));
-		protocol.inserir(77688715620l, new Veiculo("LIFAN X60 1.8 16V 128cv 5p Mec.X60 1.8 16V 128cv 5p Mec.",77688715620l ,"JUA-4399",2013,"Fábio Diogo Fogaça", "001.572.069-12"));
+		protocol.inserir(77688715620l, new Veiculo("LIFAN X60 1.8 16V 128cv 5p Mec.X60",77688715620l ,"JUA-4399",2013,"Fábio Diogo Fogaça", "001.572.069-12"));
 		protocol.inserir(97978690284l, new Veiculo("911 Carrera S Cabriolet 3.8 24V",97978690284l ,"JJO-8347",2012,"Evelyn Marcela Manuela Silveira", "478.531.451-60"));
 		protocol.inserir(17671339618l, new Veiculo("TAC Stark 2.3 4WD 127cv TDI Diesel 3p",17671339618l ,"KDT-2995",2010,"Leandro Erick Thiago Almeida", "224.226.094-49"));
 		protocol.inserir(59601377265l, new Veiculo("Troller RF Esport T-4 4x4 2.0 Cap. R",59601377265l ,"IAC-6433",1999,"Thomas Breno da Mota", "138.257.899-77"));
 		protocol.inserir(78110126986l, new Veiculo("ASTON MARTIN Vantage S 6.0 V12 565cv",30976021643l ,"JTC-3752",2015,"Laura Elaine Adriana da Silva", "219.199.757-05"));
 		protocol.inserir(83109184540l, new Veiculo("Troller T-4 4x4 3.0 TB Int. Cap. Lona Diesel ",83109184540l ,"HUW-4283",2006,"Isadora Ana Vanessa Sales", "834.545.236-13"));
 		protocol.inserir(50655297959l, new Veiculo("MG 550 1.8 16V Turbo 170cv Aut.",50655297959l ,"HSB-2837",2010,"Mateus Caleb Yago da Paz", "581.687.187-04"));
-		
         do {
+			try{
             System.out.println("╔══════════════════════╗");
             System.out.println("║   Menu de Opções     ║");
             System.out.println("╠══════════════════════╣");
@@ -94,9 +95,12 @@ public class run {
                 System.out.print("\nPressione Enter para continuar...");
                 ler.nextLine();
             }
-            
+		}catch(InputMismatchException e){
+            System.out.println("Entrada inválida. Digite um número inteiro.");
+        }catch (InputNotAnIntegerException e) {
+            System.out.println(e.getMessage());}
+ 
         } while (x != 0);
-		ler.close();
     }	
 			
 }

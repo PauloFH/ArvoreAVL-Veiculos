@@ -1,6 +1,6 @@
 package client_server;
 
-import model.Veiculo;
+
 
 public class Tree <T>{
 	No<T> raiz;
@@ -269,42 +269,8 @@ public class Tree <T>{
 		else if(arv.chave < ch)
 		return buscar(arv.dir, ch);
 		else
-			
-		return arv;
+			return arv;
 		}
-	
-		public No<Veiculo> buscar(Long ch, String placa) {
-			return this.buscar((No<Veiculo>) this.getRaiz(), ch, placa);
-			
-		}
-	private No<Veiculo> buscar(No<Veiculo> arv,long ch ,String placa){
-		if(arv == null)
-		 return null;
-		else if(arv.chave > ch)
-		return buscar(arv.esq, ch, placa);
-		else if(arv.chave < ch)
-		return buscar(arv.dir, ch,placa);
-		else
-			if(arv.valor.getPlaca() == placa){
-				return arv;
-			}
-			else{
-				System.out.println("Erro: Placa do carro não bate com o renavam");
-				return	null;
-			}
-		
-		}
-
-
-
-
-
-
-
-
-
-
-
 		
 	public No<T> alterar(Long renavan, T v) {
 		return this.alterar(this.getRaiz(), renavan, v);

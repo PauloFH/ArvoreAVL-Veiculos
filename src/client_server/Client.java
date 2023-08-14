@@ -1,14 +1,20 @@
 package client_server;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import exceptions.InputNotAnIntegerException;
 
 public class Client {
 	Protocol protocol = new Protocol();
 
 	public void client() {
-		Scanner lerx = new Scanner(System.in);
+        
+		Scanner lerx;
 		int x = 1;
 		do {
+            try{
+                lerx = new Scanner(System.in);
             System.out.println("+----------------------------------------------------+");
             System.out.println("|             Escolha uma opção abaixo              |");
             System.out.println("+----------------------------------------------------+");
@@ -67,8 +73,12 @@ public class Client {
                     System.out.println("Opção inválida. Escolha novamente.");
                     break;
             }
+        }catch(InputMismatchException e){
+            System.out.println("Entrada inválida. Digite um número inteiro.");
+        }catch (InputNotAnIntegerException e) {
+            System.out.println(e.getMessage());}
+
         } while (x != 0);
 		
-		lerx.close();
 	}
 }
